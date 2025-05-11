@@ -4,8 +4,6 @@
 ////////////////////////////////////////////////////////////////////
 package it.unipd.mtss;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,7 +77,7 @@ public class RomanPrinter {
 
 
     public static String print(int num) {
-        throw new NotImplementedException();
+        return printAsciiArt(IntegerToRoman.convert(num));
     }
 
     private static String printAsciiArt(String romanNumber) {
