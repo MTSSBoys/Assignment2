@@ -4,16 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="94312aa0-08df-4759-af60-f3e056797728" name="Changes" comment="Creato il progetto con Maven, closes #1">
-      <change afterPath="$PROJECT_DIR$/checkstyle.xml" afterDir="false" />
+    <list default="true" id="94312aa0-08df-4759-af60-f3e056797728" name="Changes" comment="Configurato il Build Lifecycle, closes #2">
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/unipd/mtss/RomanPrinter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/it/unipd/mtss/RomanPrinterTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unipd/mtss/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unipd/mtss/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -32,12 +39,14 @@
     "Maven.Assignment2 [clean].executor": "Run",
     "Maven.Assignment2 [org.apache.maven.plugins:maven-checkstyle-plugin:3.1.2:check].executor": "Run",
     "Maven.Assignment2 [org.apache.maven.plugins:maven-checkstyle-plugin:3.1.2:checkstyle].executor": "Run",
+    "Maven.Assignment2 [package].executor": "Run",
+    "Maven.Assignment2 [test].executor": "Run",
     "Maven.Assignment2 [validate].executor": "Run",
     "Maven.Assignment2 [verify].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/build-lifecycle",
+    "git-widget-placeholder": "develop",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -46,6 +55,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="it.unipd.mtss" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -62,7 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1746957806429</updated>
       <workItem from="1746957807570" duration="529000" />
-      <workItem from="1746958349721" duration="150000" />
+      <workItem from="1746958349721" duration="766000" />
     </task>
     <task id="LOCAL-00001" summary="Creato il progetto con Maven, closes #1">
       <option name="closed" value="true" />
@@ -72,7 +86,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746957872600</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Configurato il Build Lifecycle, closes #2">
+      <option name="closed" value="true" />
+      <created>1746958550215</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746958550215</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -80,6 +102,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creato il progetto con Maven, closes #1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creato il progetto con Maven, closes #1" />
+    <MESSAGE value="Configurato il Build Lifecycle, closes #2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Configurato il Build Lifecycle, closes #2" />
   </component>
 </project>
