@@ -4,14 +4,39 @@
 ////////////////////////////////////////////////////////////////////
 package it.unipd.mtss;
 
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 /**
  * Hello world!
  *
  */
 public class App 
 {
+
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        Scanner scanner = new Scanner(System.in);
+        int number;
+        String romanRepresentation;
+
+        System.out.print("Inserisci un numero: ");
+
+        try {
+            number = scanner.nextInt();
+        } catch (NoSuchElementException e) {
+            System.err.println("Input non valido");
+            return;
+        }
+
+        try {
+            romanRepresentation = RomanPrinter.print(number);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Input fuori dal range [1, 1000]");
+            return;
+        }
+
+        System.out.println(romanRepresentation);
     }
 }
