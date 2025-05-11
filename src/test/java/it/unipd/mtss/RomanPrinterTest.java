@@ -1,6 +1,7 @@
 package it.unipd.mtss;
 
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 
 import java.lang.reflect.Method;
 
@@ -160,5 +161,35 @@ public class RomanPrinterTest {
         };
 
         assertEquals(String.join("\n", expected), invokePrintAsciiArt(roman));
+    }
+
+    @Test
+    public void testInvalidArgumentExceptionOnPrint_LowerBound() {
+        int number = 0;
+
+        ThrowingRunnable result = () -> RomanPrinter.print(number);
+
+        assertThrows(IllegalArgumentException.class, result);
+    }
+
+
+    @Test
+    public void testInvalidArgumentExceptionOnPrint_UpperBound() {
+        int number = 1001;
+
+        ThrowingRunnable result = () -> RomanPrinter.print(number);
+
+        assertThrows(IllegalArgumentException.class, result);
+    }
+
+    @Test
+    public void testInRangeNumber() {
+        int number = 888;
+        String expectedOutput, actualOutput;
+
+        expectedOutput = invokePrintAsciiArt(IntegerToRoman.convert(888));
+        actualOutput = RomanPrinter.print(888);
+
+        assertEquals(expectedOutput, actualOutput);
     }
 }
