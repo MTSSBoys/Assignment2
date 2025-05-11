@@ -1,0 +1,107 @@
+name: Maven Build and Release
+permissions:
+  contents: write
+  pull-requests: write
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Maven (compile, test, checkstyle, package)
+        run: mvn clean verify
+
+      - name: Upload Checkstyle Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkstyle-report
+          path: target/checkstyle-result.xml
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: roman-number-jar
+          path: target/roman-number-1.0-SNAPSHOT.jar
+
+      - name: Upload JaCoCo Coverage Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: target/site/jacoco
+
+      - name: Generate JaCoCo Badge and Report
+        uses: madrapps/jacoco-report@v1.7.2
+        with:
+          paths: target/site/jacoco/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  # ✅ Necessario per usare git/gh
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: List downloaded files (debug)
+        run: ls -R artifacts/
+
+      - name: Create GitHub Release with commit hash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMMIT_HASH=$(git rev-parse HEAD)
+          SHORT_HASH=${COMMIT_HASH:0:7}
+          gh release create "$SHORT_HASH" \
+            artifacts/roman-number-jar/roman-number-1.0-SNAPSHOT.jar \
+            artifacts/checkstyle-report/checkstyle-result.xml \
+            artifacts/jacoco-report/jacoco.xml \
+            artifacts/jacoco-report/index.html \
+            --title "Release $SHORT_HASH" \
+            --notes "Automatic release from tag \`$SHORT_HASH\`"
+  pages-deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download JaCoCo report
+        uses: actions/download-artifact@v4
+        with:
+          name: jacoco-report
+          path: jacoco-site
+
+      - name: Deploy JaCoCo HTML to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./jacoco-site
+          publish_branch: gh-pages
+
+
+
