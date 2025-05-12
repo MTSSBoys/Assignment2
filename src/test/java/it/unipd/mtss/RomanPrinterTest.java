@@ -3,24 +3,29 @@ package it.unipd.mtss;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import static org.junit.Assert.*;
 
 public class RomanPrinterTest {
 
-    private String invokePrintAsciiArt(String roman) {
+    private String invokePrintAsciiArt(String roman) throws Throwable {
         try {
             Method method = RomanPrinter.class.getDeclaredMethod("printAsciiArt", String.class);
             method.setAccessible(true);
             return (String) method.invoke(null, roman);
-        } catch (Exception e) {
+        } catch (NoSuchMethodException|SecurityException e) {
+            throw new RuntimeException("Failed to get printAsciiArt via reflection", e);
+        } catch (IllegalAccessException|IllegalArgumentException e) {
             throw new RuntimeException("Failed to invoke printAsciiArt via reflection", e);
+        } catch (InvocationTargetException e) {
+            throw e.getTargetException();
         }
     }
 
     @Test
-    public void shouldPrintAsciiForI() {
+    public void shouldPrintAsciiForI() throws Throwable {
         String roman = "I";
         String[] expected = new String[]{
                 "  _____  ",
@@ -36,7 +41,7 @@ public class RomanPrinterTest {
     }
 
     @Test
-    public void shouldPrintAsciiForII() {
+    public void shouldPrintAsciiForII() throws Throwable {
         String roman = "II";
         String[] expected = new String[]{
                 "  _____  " + "  _____  ",
@@ -52,7 +57,7 @@ public class RomanPrinterTest {
     }
 
     @Test
-    public void shouldPrintAsciiForIII() {
+    public void shouldPrintAsciiForIII() throws Throwable {
         String roman = "III";
         String[] expected = new String[]{
                 "  _____  " + "  _____  " + "  _____  ",
@@ -68,7 +73,7 @@ public class RomanPrinterTest {
     }
 
     @Test
-    public void shouldPrintAsciiForV() {
+    public void shouldPrintAsciiForV() throws Throwable {
         String roman = "V";
         String[] expected = new String[]{
                 " __      __ ",
@@ -84,7 +89,7 @@ public class RomanPrinterTest {
     }
 
     @Test
-    public void shouldPrintAsciiForX() {
+    public void shouldPrintAsciiForX() throws Throwable {
         String roman = "X";
         String[] expected = new String[]{
                 " __   __ ",
@@ -100,7 +105,7 @@ public class RomanPrinterTest {
     }
 
     @Test
-    public void shouldPrintAsciiForL() {
+    public void shouldPrintAsciiForL() throws Throwable {
         String roman = "L";
         String[] expected = new String[]{
                 "  _       ",
@@ -116,7 +121,7 @@ public class RomanPrinterTest {
     }
 
     @Test
-    public void shouldPrintAsciiForC() {
+    public void shouldPrintAsciiForC() throws Throwable {
         String roman = "C";
         String[] expected = new String[]{
                 "   _____  ",
@@ -132,7 +137,7 @@ public class RomanPrinterTest {
     }
 
     @Test
-    public void shouldPrintAsciiForD() {
+    public void shouldPrintAsciiForD() throws Throwable {
         String roman = "D";
         String[] expected = new String[]{
                 "  _____   ",
@@ -148,7 +153,7 @@ public class RomanPrinterTest {
     }
 
     @Test
-    public void shouldPrintAsciiForM() {
+    public void shouldPrintAsciiForM() throws Throwable {
         String roman = "M";
         String[] expected = new String[]{
                 "  __  __  ",
@@ -183,7 +188,7 @@ public class RomanPrinterTest {
     }
 
     @Test
-    public void testInRangeNumber() {
+    public void testInRangeNumber() throws Throwable {
         int number = 888;
         String expectedOutput, actualOutput;
 
@@ -191,5 +196,14 @@ public class RomanPrinterTest {
         actualOutput = RomanPrinter.print(888);
 
         assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    public void testInvalidCharacter() {
+        String invalid = "AAA";
+
+        ThrowingRunnable result = () -> invokePrintAsciiArt(invalid);
+
+        assertThrows(IllegalArgumentException.class, result);
     }
 }

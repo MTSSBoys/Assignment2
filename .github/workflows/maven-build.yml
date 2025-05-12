@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: roman-number-jar
-          path: target/roman-number-1.0-SNAPSHOT.jar
+          path: target/*.jar
 
       - name: Upload JaCoCo Coverage Report
         if: always()
@@ -75,7 +75,7 @@ jobs:
           COMMIT_HASH=$(git rev-parse HEAD)
           SHORT_HASH=${COMMIT_HASH:0:7}
           gh release create "$SHORT_HASH" \
-            artifacts/roman-number-jar/roman-number-1.0-SNAPSHOT.jar \
+            artifacts/**/*.jar \
             artifacts/checkstyle-report/checkstyle-result.xml \
             artifacts/jacoco-report/jacoco.xml \
             artifacts/jacoco-report/index.html \
