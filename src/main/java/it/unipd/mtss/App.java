@@ -4,14 +4,9 @@
 ////////////////////////////////////////////////////////////////////
 package it.unipd.mtss;
 
-import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
 
