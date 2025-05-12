@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RomanPrinter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Assignment2</a> &gt; <a href="index.source.html" class="el_package">it.unipd.mtss</a> &gt; <span class="el_source">RomanPrinter.java</span></div><h1>RomanPrinter.java</h1><pre class="source lang-java linenums">////////////////////////////////////////////////////////////////////
+// Davide Baraldo 2082847
+// Alessandro Zainer 2101091
+////////////////////////////////////////////////////////////////////
+package it.unipd.mtss;
+
+import java.util.HashMap;
+import java.util.Map;
+
+<span class="nc" id="L10">public class RomanPrinter {</span>
+<span class="fc" id="L11">    private static final Map&lt;Character, String[]&gt; ASCII_MAP = new HashMap&lt;&gt;();</span>
+
+    static {
+<span class="fc" id="L14">        ASCII_MAP.put('I', new String[]{</span>
+                &quot;  _____  &quot;,
+                &quot; |_   _| &quot;,
+                &quot;   | |   &quot;,
+                &quot;   | |   &quot;,
+                &quot;  _| |_  &quot;,
+                &quot; |_____| &quot;
+        });
+
+<span class="fc" id="L23">        ASCII_MAP.put('V', new String[]{</span>
+                &quot; __      __ &quot;,
+                &quot; \\ \\    / / &quot;,
+                &quot;  \\ \\  / /  &quot;,
+                &quot;   \\ \\/ /   &quot;,
+                &quot;    \\  /    &quot;,
+                &quot;     \\/     &quot;
+        });
+
+<span class="fc" id="L32">        ASCII_MAP.put('X', new String[]{</span>
+                &quot; __   __ &quot;,
+                &quot; \\ \\ / / &quot;,
+                &quot;  \\ V /  &quot;,
+                &quot;   &gt; &lt;   &quot;,
+                &quot;  / . \\  &quot;,
+                &quot; /_/ \\_\\ &quot;
+        });
+
+<span class="fc" id="L41">        ASCII_MAP.put('L', new String[]{</span>
+                &quot;  _       &quot;,
+                &quot; | |      &quot;,
+                &quot; | |      &quot;,
+                &quot; | |      &quot;,
+                &quot; | |____  &quot;,
+                &quot; |______| &quot;
+        });
+
+<span class="fc" id="L50">        ASCII_MAP.put('C', new String[]{</span>
+                &quot;   _____  &quot;,
+                &quot;  / ____| &quot;,
+                &quot; | |      &quot;,
+                &quot; | |      &quot;,
+                &quot; | |____  &quot;,
+                &quot;  \\_____| &quot;
+        });
+
+<span class="fc" id="L59">        ASCII_MAP.put('D', new String[]{</span>
+                &quot;  _____   &quot;,
+                &quot; |  __ \\  &quot;,
+                &quot; | |  | | &quot;,
+                &quot; | |  | | &quot;,
+                &quot; | |__| | &quot;,
+                &quot; |_____/  &quot;
+        });
+
+<span class="fc" id="L68">        ASCII_MAP.put('M', new String[]{</span>
+                &quot;  __  __  &quot;,
+                &quot; |  \\/  | &quot;,
+                &quot; | \\  / | &quot;,
+                &quot; | |\\/| | &quot;,
+                &quot; | |  | | &quot;,
+                &quot; |_|  |_| &quot;
+        });
+<span class="fc" id="L76">    }</span>
+
+
+    public static String print(int num) {
+<span class="fc" id="L80">        return printAsciiArt(IntegerToRoman.convert(num));</span>
+    }
+
+    private static String printAsciiArt(String romanNumber) {
+<span class="fc" id="L84">        StringBuilder[] lines = new StringBuilder[6];</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        for (int i = 0; i &lt; 6; i++) {</span>
+<span class="fc" id="L86">            lines[i] = new StringBuilder();</span>
+        }
+
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        for (char c : romanNumber.toCharArray()) {</span>
+<span class="fc" id="L90">            String[] art = ASCII_MAP.get(c);</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            if (art == null) {</span>
+<span class="fc" id="L92">                throw new IllegalArgumentException(&quot;Carattere romano non supportato: &quot; + c);</span>
+            }
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            for (int i = 0; i &lt; 6; i++) {</span>
+<span class="fc" id="L95">                lines[i].append(art[i]);</span>
+            }
+        }
+
+<span class="fc" id="L99">        StringBuilder result = new StringBuilder();</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        for (StringBuilder line : lines) {</span>
+<span class="fc" id="L101">            result.append(line).append(&quot;\n&quot;);</span>
+        }
+
+<span class="fc" id="L104">        return result.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
